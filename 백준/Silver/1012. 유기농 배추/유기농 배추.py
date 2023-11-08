@@ -1,34 +1,34 @@
 from collections import deque
-import sys
 
-T = int(sys.stdin.readline())
+test_case = int(input())
 
-for t in range(T):
-    m,n,k = map(int, sys.stdin.readline().split())
-    #가로, 세로, 배추개수
-    board = [[0 for i in range(m)] for i in range(n)]
-    for i in range(k):
-        x,y = map(int, sys.stdin.readline().split())
-        board[y][x] = 1
+for _ in range(test_case):
+    # 가로, 세로, 배추 개수
+    m,n,k = map(int, input().split())
+    graph = [[0 for i in range(m)] for i in range(n)]
     visited = [[0 for i in range(m)] for i in range(n)]
-    dx = [0,0,-1,1]
-    dy = [-1,1,0,0]
-    count = 0
+    for _ in range(k):
+        a,b = map(int, input().split())
+        graph[b][a] = 1
+        
+    dx = [-1,1,0,0]
+    dy = [0,0,-1,1]
+    cnt = 0
     for i in range(n):
         for j in range(m):
-            q = deque()
-            if board[i][j] == 1 and visited[i][j] == 0:
-                count += 1
+            queue = deque()
+            if graph[i][j] == 1 and visited[i][j] ==0:
+                queue.append([i,j])
                 visited[i][j] = 1
-                q.append([i,j]) #y,x
-            while q:
-                y,x = q.popleft()
-                for idx in range(4):
-                    nx = x + dx[idx]
-                    ny = y + dy[idx]
-                    if nx < 0 or nx >= m or ny < 0 or ny >= n:
+                cnt +=1
+            while queue:
+                x,y = queue.popleft()
+                for k in range(4):
+                    nx = dx[k]+x
+                    ny = dy[k]+y
+                    if nx>=n or nx<0 or ny>=m or ny < 0:
                         continue
-                    if visited[ny][nx] == 0 and board[ny][nx] == 1:
-                        visited[ny][nx] = 1
-                        q.append([ny,nx])
-    print(count)
+                    if graph[nx][ny] ==1 and visited[nx][ny]==0:
+                        visited[nx][ny] = 1
+                        queue.append([nx,ny])
+    print(cnt)
