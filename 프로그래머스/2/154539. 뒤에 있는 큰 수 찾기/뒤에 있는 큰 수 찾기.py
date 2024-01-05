@@ -1,12 +1,13 @@
-
-
 def solution(numbers):
-    answer = [-1 for _ in range(len(numbers))]
-    stack=[]
-    for i, num in enumerate(numbers):
-        # numbers[stack[-1]]의 뒷 큰수가 num이 될 수 있는가?
-        while stack and numbers[stack[-1]]< num:
-            idx = stack.pop()
-            answer[idx] = num
-        stack.append(i)
+    answer = []
+    dic = {}
+    
+    for i in range(len(numbers)):
+        temp = -1
+            
+        for j in range(i, len(numbers)):
+            if numbers[j]>numbers[i]:
+                temp = numbers[j]
+                break
+        answer.append(temp)
     return answer
