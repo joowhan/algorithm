@@ -1,0 +1,19 @@
+-- 코드를 입력하세요
+SELECT *
+FROM PLACES
+WHERE HOST_ID IN(
+    SELECT HOST_ID 
+    FROM (
+        SELECT HOST_ID, COUNT(*) AS C
+        FROM PLACES
+        GROUP BY HOST_ID
+    ) AS T
+    WHERE C>=2
+)
+# SELECT HOST_ID 
+# FROM (
+#     SELECT HOST_ID, COUNT(*) AS C
+#     FROM PLACES
+#     GROUP BY HOST_ID
+# ) AS T
+# WHERE C>=2
