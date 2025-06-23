@@ -1,6 +1,8 @@
 n,k = map(int, input().split())
-result = [0]*n
+score = [list(map(int, input().split())) for _ in range(n)]
+score.sort(key=lambda x: (x[1],x[2],x[3]), reverse=True)
+selected = [score[i][0] for i in range(n)].index(k)
 for i in range(n):
-    lis = list(map(int, input().split()))
-    result[lis[0]-1] = 100*lis[1]+10*lis[2]+1*lis[3]
-print(sorted(result, reverse=True).index(result[k-1])+1)
+    if score[selected][1:] == score[i][1:]:
+        print(i+1)
+        break
